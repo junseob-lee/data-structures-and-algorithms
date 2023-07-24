@@ -1,1 +1,19 @@
+public static int[] heapSort(List<Integer> data) {
+    // Check for null input
+    if (data == null) {
+        throw new IllegalArgumentException("Data list cannot be null.");
+    }
+
+    // Create a priority queue (min-heap) using the data list
+    PriorityQueue<Integer> minHeap = new PriorityQueue<>(data);
+
+    // Extract elements from the min-heap to get sorted order
+    int[] sortedArr = new int[data.size()];
+    int index = 0;
+    while (!minHeap.isEmpty()) {
+        sortedArr[index++] = minHeap.poll();
+    }
+
+    return sortedArr;
+}
 

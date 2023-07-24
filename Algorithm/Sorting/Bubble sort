@@ -1,1 +1,31 @@
+public static <T> void bubbleSort(T[] arr, Comparator<T> comparator) {
+    // Check for null inputs
+    if (arr == null || comparator == null) {
+        throw new IllegalArgumentException("Array or comparator cannot be null.");
+    }
+
+    // Get the length of the array
+    int n = arr.length;
+
+    // Iterate through the array
+    for (int i = 0; i < n - 1; i++) {
+        // Assume that the array is already sorted
+        boolean swapped = false;
+
+        // Compare adjacent elements and swap them if necessary
+        for (int j = 0; j < n - i - 1; j++) {
+            if (comparator.compare(arr[j], arr[j + 1]) > 0) {
+                T temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                swapped = true;
+            }
+        }
+
+        // If no two elements were swapped, the array is already sorted
+        if (!swapped) {
+            break;
+        }
+    }
+}
 

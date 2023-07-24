@@ -27,4 +27,3 @@ public static <T> void selectionSort(T[] arr, Comparator<T> comparator) {
         }
     }
 }
-

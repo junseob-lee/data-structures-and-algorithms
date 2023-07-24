@@ -1,1 +1,62 @@
+public static <T> void mergeSort(T[] arr, Comparator<T> comparator) {
+    // Check for null inputs
+    if (arr == null || comparator == null) {
+        throw new IllegalArgumentException("Array or comparator cannot be null.");
+    }
+
+    // Call the helper function with the appropriate parameters
+    mergeSortHelper(arr, 0, arr.length - 1, comparator);
+}
+
+private static <T> void mergeSortHelper(T[] arr, int low, int high, Comparator<T> comparator) {
+    // Base case: if there is only one element or none, the array is already sorted
+    if (low >= high) {
+        return;
+    }
+
+    // Calculate the middle index
+    int mid = low + (high - low) / 2;
+
+    // Recursively sort the left and right halves
+    mergeSortHelper(arr, low, mid, comparator);
+    mergeSortHelper(arr, mid + 1, high, comparator);
+
+    // Merge the sorted halves
+    merge(arr, low, mid, high, comparator);
+}
+
+private static <T> void merge(T[] arr, int low, int mid, int high, Comparator<T> comparator) {
+    // Create temporary arrays to store the two halves
+    T[] leftArr = Arrays.copyOfRange(arr, low, mid + 1);
+    T[] rightArr = Arrays.copyOfRange(arr, mid + 1, high + 1);
+
+    int leftIndex = 0;
+    int rightIndex = 0;
+    int mergedIndex = low;
+
+    // Merge the two arrays by comparing elements
+    while (leftIndex < leftArr.length && rightIndex < rightArr.length) {
+        if (comparator.compare(leftArr[leftIndex], rightArr[rightIndex]) <= 0) {
+            arr[mergedIndex] = leftArr[leftIndex];
+            leftIndex++;
+        } else {
+            arr[mergedIndex] = rightArr[rightIndex];
+            rightIndex++;
+        }
+        mergedIndex++;
+    }
+
+    // Copy any remaining elements from the left and right arrays
+    while (leftIndex < leftArr.length) {
+        arr[mergedIndex] = leftArr[leftIndex];
+        leftIndex++;
+        mergedIndex++;
+    }
+
+    while (rightIndex < rightArr.length) {
+        arr[mergedIndex] = rightArr[rightIndex];
+        rightIndex++;
+        mergedIndex++;
+    }
+}
 
